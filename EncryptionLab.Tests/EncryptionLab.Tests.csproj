@@ -55,6 +55,7 @@
     <Compile Include="CaesarTests.cs" />
     <Compile Include="PolyalphabeticTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableTranspositionTests.cs" />
     <Compile Include="TranspositionTests.cs" />
   </ItemGroup>
   <ItemGroup>

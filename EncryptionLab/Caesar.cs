@@ -14,13 +14,31 @@ namespace EncryptionLab
         public static string Encode(string value, Shift s, int shift, char[] alphabet)
             => Code(value, s, shift, alphabet);
 
+        public static string Decode(string value, int shift, char[] alphabet)
+            => Code(value, shift < 0 ? Shift.Right : Shift.Left, Math.Abs(shift), alphabet);
+
+        public static string Encode(string value, int shift, char[] alphabet)
+            => Code(value, shift > 0 ? Shift.Right : Shift.Left, Math.Abs(shift), alphabet);
         private static string Code(string value, Shift s, int shift, char[] alphabet)
         {
             var sb = new StringBuilder();
             foreach (var t in value)
             {
-                var i = Array.IndexOf(alphabet, t) + (s == Shift.Right ? shift : 1 * -shift);
-                sb = sb.Append(alphabet[alphabet.Length < i - 1 ? i - alphabet.Length : i]);
+                var i = Array.IndexOf(alphabet, t) + (s == Shift.Right ? shift : -1 * shift);
+                var r = Math.Abs(i) % alphabet.Length;
+                if (r == 0)
+                {
+                    r = i;
+                }
+                if (r < 0)
+                {
+                    r = alphabet.Length - r -1;
+                }
+                else if (r > alphabet.Length)
+                {
+                    r -= alphabet.Length -1;
+                }
+                sb = sb.Append(alphabet[r]);
             }
             return sb.ToString();
         }

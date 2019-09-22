@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionLab", "Encryption
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionLab.Tests", "EncryptionLab.Tests\EncryptionLab.Tests.csproj", "{E8C683A8-126E-4021-8476-BA29D0526243}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionLab.Forms", "EncryptionLab.Forms\EncryptionLab.Forms.csproj", "{1868F2C4-9BB4-4AAC-B471-4323ABEF20ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E8C683A8-126E-4021-8476-BA29D0526243}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8C683A8-126E-4021-8476-BA29D0526243}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8C683A8-126E-4021-8476-BA29D0526243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1868F2C4-9BB4-4AAC-B471-4323ABEF20ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1868F2C4-9BB4-4AAC-B471-4323ABEF20ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1868F2C4-9BB4-4AAC-B471-4323ABEF20ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1868F2C4-9BB4-4AAC-B471-4323ABEF20ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
