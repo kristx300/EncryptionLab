@@ -25,18 +25,14 @@ namespace EncryptionLab
             foreach (var t in value)
             {
                 var i = Array.IndexOf(alphabet, t) + (s == Shift.Right ? shift : -1 * shift);
-                var r = Math.Abs(i) % alphabet.Length;
-                if (r == 0)
+                int r;
+                if (i < 0)
                 {
-                    r = i;
+                    r = alphabet.Length - (Math.Abs(i) % alphabet.Length);
                 }
-                if (r < 0)
+                else
                 {
-                    r = alphabet.Length - r -1;
-                }
-                else if (r > alphabet.Length)
-                {
-                    r -= alphabet.Length -1;
+                    r = Math.Abs(i) % alphabet.Length;
                 }
                 sb = sb.Append(alphabet[r]);
             }

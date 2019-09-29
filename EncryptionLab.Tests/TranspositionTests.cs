@@ -29,5 +29,11 @@ namespace EncryptionLab.Tests
             var res = Transposition.Encode(DecodedText, Key);
             Assert.AreEqual(EncodedText,res);
         }
+        [TestMethod()]
+        public void EncodeTestNumberCase()
+        {
+            var res = Transposition.Encode("abcd", "2413");
+            Assert.AreEqual("cadb", res);
+        }
     }
 }

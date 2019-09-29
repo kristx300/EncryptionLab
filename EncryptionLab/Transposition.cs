@@ -46,7 +46,7 @@ namespace EncryptionLab
             }
         }
 
-        private static int[] GetIndexes(string key)
+        internal static int[] GetIndexes(string key)
         {
             var ordered = key.OrderBy(q => q).ToArray();
             var indexes = Enumerable.Range(0, key.Length).Select(i => -999).ToArray();

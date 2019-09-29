@@ -8,6 +8,16 @@ namespace EncryptionLab
 {
     public static class TableTransposition
     {
+        public static string Decode(string value, string key)
+        {
+            var result = GenerateArrayBounds(value, key);
+            return Decode(value, result.Item1, result.Item2, result.Item3);
+        }
+        public static string Encode(string value, string key)
+        {
+            var result = GenerateArrayBounds(value, key);
+            return Encode(value, result.Item1, result.Item2, result.Item3);
+        }
         public static string Decode(string value, int n, int m, int[] key)
         {
             var chiper = new char[n, m];
@@ -28,12 +38,22 @@ namespace EncryptionLab
                     break;
                 }
             }
-            var sb = new StringBuilder();
-            for (int i = 1; i <= key.Length; i++)
+
+            var ans = new char[n, m];
+            for (int i = 0; i < m; i++)
             {
-                for (int mj = 0; mj < m; mj++)
+                for (int kIndex = 1; kIndex <= key.Length; kIndex++)
                 {
-                    sb = sb.Append(chiper[Array.IndexOf(key, i),mj]);
+                    ans[Array.IndexOf(key, kIndex),i] = chiper[kIndex - 1,i];
+                }
+            }
+
+            var sb = new StringBuilder();
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    sb = sb.Append(ans[j,i]);
                 }
             }
             return sb.ToString();
@@ -67,6 +87,17 @@ namespace EncryptionLab
                 }
             }
             return sb.ToString();
+        }
+
+        public static Tuple<int, int,int[]> GenerateArrayBounds(string value , string key)
+        {
+            var columns = value.Length / key.Length;
+            var result = Transposition.GetIndexes(key);
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i]++;
+            }
+            return new Tuple<int, int, int[]>(key.Length,columns, result);
         }
     }
 }
