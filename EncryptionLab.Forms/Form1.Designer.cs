@@ -49,7 +49,8 @@
             "Шифр Цезаря",
             "Метод многоалфавитной замены",
             "Метод блочной перестановки",
-            "Метод перестановки по таблице"});
+            "Метод перестановки по таблице",
+            "Метод гаммирования"});
             this.methodBox.Location = new System.Drawing.Point(12, 23);
             this.methodBox.Name = "methodBox";
             this.methodBox.Size = new System.Drawing.Size(121, 21);

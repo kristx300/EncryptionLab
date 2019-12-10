@@ -48,6 +48,9 @@ namespace EncryptionLab.Forms
                 case 3:
                     resultBox.Text = TableTransposition.Encode(valueBox.Text, keyBox.Text);
                     break;
+                case 4:
+                    resultBox.Text = Gamma.Encode(valueBox.Text, keyBox.Text);
+                    break;
 
             }
         }
@@ -68,6 +71,9 @@ namespace EncryptionLab.Forms
                     break;
                 case 3:
                     resultBox.Text = TableTransposition.Decode(valueBox.Text, keyBox.Text);
+                    break;
+                case 4:
+                    resultBox.Text = Gamma.Decode(valueBox.Text, keyBox.Text);
                     break;
             }
         }
