@@ -14,12 +14,11 @@ namespace Passwordec
 {
     public partial class Form1 : Form
     {
-
         private Status Status = Status.Login;
         private readonly List<User> Users;
         private User _currentUser;
         private readonly string path = Path.Combine(Environment.CurrentDirectory, "data.txt");
-
+        private List<string> Logins = new List<string>();
         public User CurrentUser
         {
             get => _currentUser;
@@ -48,6 +47,16 @@ namespace Passwordec
         {
             if (Status == Status.Login)
             {
+                if (string.IsNullOrWhiteSpace(login.Text))
+                {
+                    MessageBox.Show("Неверный формат логина");
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(password.Text))
+                {
+                    MessageBox.Show("Неверный формат пароля");
+                    return;
+                }
                 //Вход
                 var user = Users.FirstOrDefault(q => q.Login == login.Text && q.Password == password.Text);
                 if (user != null)
@@ -56,12 +65,25 @@ namespace Passwordec
                     Status = Status.LogOff;
                     login.Enabled = false;
                     action.Text = "Выйти";
-                    subAction.Text = "Сгенерировать новый пароль";
+                    subAction.Text = "Сгенерировать пароль";
                     password.ReadOnly = true;
                 }
                 else
                 {
-                    MessageBox.Show("Пользователь не найден");
+                    Logins.Add(login.Text);
+                    if (Logins.Count(q=> q == login.Text) >= 10)
+                    {
+                        Status = Status.Blocked;
+                        foreach (var c in Controls)
+                        {
+                            ((Control) c).Enabled = false;
+                        }
+                        MessageBox.Show("Превышен интервал количества неудачных попыток входа");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден");
+                    }
                 }
             }
             else if (Status == Status.LogOff)
@@ -81,7 +103,7 @@ namespace Passwordec
             {
                 if (string.IsNullOrWhiteSpace(login.Text))
                 {
-                    MessageBox.Show("Логин пустой");
+                    MessageBox.Show("Неверный формат логина");
                     return;
                 }
                 else
@@ -117,6 +139,18 @@ namespace Passwordec
                     {
                         sb = sb.Append(numbers[r.Next(0, numbers.Length)]);
                     }
+                    /*
+                     * Nmax <= Nmin + 2/3 * M.
+                       Где:
+                       1)	Nmin – минимальная длина идентификатора (логина);
+                       2)	Nmax – максимальная длина идентификатора (логина);
+                       3)	M – длина пароля.                       
+                     */
+                    if (login.Text.Length > 1 + 2/3 * M)
+                    {
+                        MessageBox.Show("Превышена максимальная длина идентификатора");
+                        return;
+                    }
                     user = new User
                     {
                         Login = login.Text,
@@ -125,7 +159,7 @@ namespace Passwordec
                     Users.Add(user);
                     Save();
                     action.Text = "Выйти";
-                    subAction.Text = "Сгенерировать новый пароль";
+                    subAction.Text = "Сгенерировать пароль";
                     CurrentUser = user;
                     Status = Status.LogOff;
                     login.Enabled = false;
@@ -176,7 +210,8 @@ namespace Passwordec
     public enum Status
     {
         Login,
-        LogOff
+        LogOff,
+        Blocked
     }
     public class User
     {
